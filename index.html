@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOT.ly</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="./BOT.ly.png" type="image/icon type" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+  </head>
+  <body onload="checkCookie()">
+    <img class="title" src="./BOT.ly.png" alt="BOT.ly" />
+    <div class="main">
+      <div class="chat">
+        <h4 class="sent"></h4>
+        <h4 class="recieved"></h4>
+      </div>
+      <div class="input">
+        <button class="talk" onclick="recognition.start()">
+          <i class="fas fa-microphone"></i>
+        </button>
+        <input class="inputText" type="text" onclick="typerSizeIncrease()" />
+        <button class="submit" onclick="typerSizeDecrease()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="./js/app.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="./js/jQuery-3.4.1.min.js"></script>
+  </body>
+</html>
