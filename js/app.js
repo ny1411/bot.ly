@@ -14,7 +14,6 @@ function typerSizeIncrease() {
 function typerSizeDecrease() {
   talkb.style.cssText = "display:block;";
   typer.style.cssText = "width:30vw;"
-
 }
 
 //typing feature
@@ -65,6 +64,7 @@ function httpRequest(url, callback) {
   httpRequest.open("GET", url, false);
   httpRequest.send();
   httpRequest.suppressDeprecationWarnings = true;
+  console.log(httpRequest);
   if (httpRequest.status == 404 || httpRequest.status == 400) {
     var warn404 = "I'm afraid your city couldn't be found.\nPlease type in this format:\n'city name'|space|weather";
     responsiveVoice.speak(warn404);
@@ -89,10 +89,10 @@ function parseIt(response) {
   var humidity = jsonObject.main.humidity + "%";
   var finalText =
     name +
-    " has temperature of " +
+    " has temperature " +
     temp +
-    " and humidity is " +
-    humidity +
+    " and " +
+    humidity + " humid right now" +
     ".\nIt is currently experiencing " +
     desc +
     ".";
@@ -130,19 +130,18 @@ function getCookie(cname) {
 function checkCookie() {
   let username = getCookie("username");
   if (username != "") {
-    const text = "Welcome, " + username + ". What can I do for you?";
+    const text = "Hello " + username + ",\n What can I do for you?";
     AIsend(text);
     responsiveVoice.speak(text);
   } else {
     username = prompt("May I know your name:", "");
-    gender = prompt("May I know your gender:", "");
     if (username != "" && username != null) {
       setCookie("username", username, 30);
     }
   }
-  return username;
 }
 function reply(transcript) {
+    responsiveVoice.setDefaultVoice("UK English Female");
   if (
     transcript.toLowerCase().includes("how are you") ||
     transcript.toLowerCase().includes("how are you?") ||
@@ -162,12 +161,23 @@ function reply(transcript) {
   } else if (dateQ.includes(transcript.toLowerCase())) {
     var date =
       now.getDate() + " " + month[now.getMonth()] + " " + now.getFullYear();
-    var finalText = "The date is " + date;
+    var finalText = "Today's date is " + date;
+    responsiveVoice.speak(finalText);
+    AIsend(finalText);
+  } else if (nextDateQ.includes(transcript.toLowerCase())) {
+    var date = (
+      now.getDate() + 1 + " " + month[now.getMonth()] + ", " + now.getFullYear());
+    var finalText = "Tomorrow's date is " + date;
     responsiveVoice.speak(finalText);
     AIsend(finalText);
   } else if (dayQ.includes(transcript.toLowerCase())) {
     var day = weekday[now.getDay()];
     var finalText = "Today is " + day;
+    responsiveVoice.speak(finalText);
+    AIsend(finalText);
+  } else if (nextDayQ.includes(transcript.toLowerCase())) {
+    var day = weekday[now.getDay() + 1];
+    var finalText = "Tomorrow is " + day;
     responsiveVoice.speak(finalText);
     AIsend(finalText);
   } else if (whoQ.includes(transcript.toLowerCase())) {
@@ -194,14 +204,14 @@ function reply(transcript) {
       navigator.geolocation.getCurrentPosition(function (position) {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
-        let GeoWurl =
+        let GeoURL =
           "api.openweathermap.org/data/2.5/weather?lat=" +
           lat +
           "&lon=" +
           lon +
           "&appid=" +
           appkey;
-        httpRequest(GeoWurl, parseIt);
+        httpRequest(GeoURL, parseIt);
       });
     } else {
       var finalText = "Couldn't acquire your location.";
@@ -355,9 +365,9 @@ const weekday = [
 
 const greeting = [
   "I am glad you like it!.",
-  "I know you want to flirt with me now.",
+  "Just fine.",
   "I am lov'in it.",
-  "I am good you little lovely fellow.",
+  "I am good, you little lovely fellow.",
 ];
 const weatherQ = [
   "what is the weather",
@@ -405,14 +415,42 @@ const dateQ = [
   "today's date",
   "today's date?",
 ];
+const nextDateQ = [
+  "what is the tomorrow's date",
+  "what is the tomorrow's date?",
+  "what's tomorrow's date?",
+  "what's tomorrow's date",
+  "tomorrow's date",
+  "tomorrow's date?",
+  "tell me tomorrow's date",
+  "tell me the tomorrow's date please",
+  "tell me the tomorrow's date please?",
+  "what is tomorrow's date",
+  "what is tomorrow's date?",
+  "tomorrow's date",
+  "tomorrow's date?",
+];
 const dayQ = [
   "tell me what is this day",
   "what is today's day",
   "what is today's day?",
   "weekday",
+  "today's day",
+  "today's day?",
   "weekday?",
   "which day is this",
   "which day is this?",
   "tell me today's weekday",
   "tell me today's day",
+];
+const nextDayQ = [
+  "tell me what is tomorrow's day",
+  "what is tomorrow's day",
+  "what is tomorrow's day?",
+  "tomorrow's day",
+  "tomorrow's day?",
+  "which day is tomorrow",
+  "which day is tomorrow?",
+  "tell me tomorrow's weekday",
+  "tell me tomorrow's day",
 ];
