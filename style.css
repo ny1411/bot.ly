@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Signika", sans-serif;
+  transition: all .5s ease-in-out;
+}
+
+body {
+  font-size: 1.5rem;
+  background-color: #000;
+  color: #000;
+}
+
+.titleImg {
+  color: #01fa90;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 90%;
+  min-width: 30%;
+  font-weight: 900;
+  z-index: -1;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+}
+
+.chat {
+  position: relative;
+  text-align: center;
+  top: 0;
+  width: 100%;
+}
+
+.chat .sent,
+.chat .recieved {
+  background-color: #01fa90;
+  min-width: 5%;
+  max-width: 45%;
+  padding: 0 10px;
+  white-space: pre-wrap;
+  font-weight: 500;
+}
+
+.chat .sent {
+  float: right;
+  border-radius: 20px 0px 0px 20px;
+  margin: 20px 0 0 0;
+  clear: both;
+}
+
+.chat .recieved {
+  float: left;
+  border-radius: 0 20px 20px 0px;
+  margin: 20px 0 0 0;
+  clear: both;
+}
+
+.input {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 90%;
+  right: 0;
+  left: 0;
+  bottom: 5%;
+}
+
+.input .inputText {
+  border-radius: 15px;
+  height: 10vh;
+  width: 30vw;
+  border: 3px solid #4400ff;
+  font-size: 1.5rem;
+  padding: 0 5px;
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+}
+
+.input button {
+  border: none;
+  background-color: transparent;
+  color: #4400ff;
+  font-size: 2.5rem;
+  margin: 0 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+@media (max-width: 550px) {
+  .chat .sent,
+  .chat .recieved {
+    font-size: 1rem;
+  }
+}
